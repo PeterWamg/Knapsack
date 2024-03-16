@@ -130,6 +130,50 @@ int knapsack_with_new_variable(int n, vector<int>& weights, vector<int>& values,
 #### Time complexity
 The time complexity of dynamic programming methods that add new variables is usually O (n W<sup>2</sup>), where n is the number of items and W is the capacity of the backpack. In this method, we introduce an additional dimension to represent the remaining capacity of the backpack, so that each state in the state transition equation needs to consider the current weight and remaining capacity of the backpack. Therefore, when filling the dynamic programming table, we need to consider O (n W<sup>2</sup>) states, and the calculation of each state requires O (1) time complexity. Therefore, the overall time complexity is O (n W<sup>2</sup>)
 
+### Bottom-UP
+
+#### Pseudocode
+```
+Input: n, w1,...,wN, v1,...,vN
+for w = 0 to W
+    M[0, w] = 0
+for i = 1 to n
+    for w = 0 to W
+        if (wi > w)
+            M[i, w] = M[i-1, w]
+        else
+            M[i, w] = max {M[i-1, w], vi + M[i-1, w-wi ]}
+return M[n, W]
+
+```
+#### Algorithmic principle
+The Bottom Up method construct the optimal solution for larger scale problems starting from the smallest subproblem. By filling a two-dimensional array, it is possible to efficiently record and calculate the optimal solutions of all subproblems, thereby obtaining the final solution to the problem.
+
+#### Algorithm implement
+The Implementation of Algorithms in C++
+```
+int knapsack_bottom_up(int n, vector<int>& weights, vector<int>& values, int W) {
+    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
+
+    // Bottom-up dynamic programming
+    for (int i = 1; i <= n; ++i) {
+        for (int w = 1; w <= W; ++w) {
+            if (weights[i] > w) {
+                dp[i][w] = dp[i - 1][w];
+            } else {
+                dp[i][w] = max(dp[i - 1][w], values[i] + dp[i - 1][w - weights[i]]);
+            }
+        }
+    }
+
+    // The result is stored in the bottom-right corner of the dp table
+    return dp[n][W];
+}
+```
+
+#### Time complexity
+The time complexity of the Bottom Up method is O (n W), where n is the number of items and W is the capacity of the backpack. In this method, we fill a two-dimensional array with a size of n x W. We need to perform a calculation for each item i and for each possible backpack capacity w. The time complexity of each calculation is O (1). Therefore, the overall time complexity is O (n W)
+
 ## Algorithm application
 The Knapsack Algorithm is frequently applied in solving resource allocation problems in real life. For instance, schools or universities may need to create class schedules to meet teaching demands and resource constraints. The knapsack problem can be utilized to determine which courses should be scheduled in each time slot, optimizing the utilization of classrooms and faculty resources. Additionally, in logistics, it can be used to allocate the carrying capacity of trucks to maximize the value of transportation, or in network traffic control, it can be applied to allocate network bandwidth to meet user demands.
 
