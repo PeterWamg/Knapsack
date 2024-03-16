@@ -130,6 +130,13 @@ int knapsack_with_new_variable(int n, vector<int>& weights, vector<int>& values,
 #### Time complexity
 The time complexity of dynamic programming methods that add new variables is usually O (n W<sup>2</sup>), where n is the number of items and W is the capacity of the backpack. In this method, we introduce an additional dimension to represent the remaining capacity of the backpack, so that each state in the state transition equation needs to consider the current weight and remaining capacity of the backpack. Therefore, when filling the dynamic programming table, we need to consider O (n W<sup>2</sup>) states, and the calculation of each state requires O (1) time complexity. Therefore, the overall time complexity is O (n W<sup>2</sup>)
 
+## Algorithm application
+The Knapsack Algorithm is frequently applied in solving resource allocation problems in real life. For instance, schools or universities may need to create class schedules to meet teaching demands and resource constraints. The knapsack problem can be utilized to determine which courses should be scheduled in each time slot, optimizing the utilization of classrooms and faculty resources. Additionally, in logistics, it can be used to allocate the carrying capacity of trucks to maximize the value of transportation, or in network traffic control, it can be applied to allocate network bandwidth to meet user demands.
+
+
+
+
+
 
 
 
