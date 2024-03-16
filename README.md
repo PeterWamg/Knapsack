@@ -75,4 +75,74 @@ int knapsack_false_start(int n, vector<int>& weights, vector<int>& values, int W
 #### Time complexity
 The time complexity of the False Start method is O(n W), where n is the number of items and W is the capacity of the knapsack. In the False Start method, we need to fill in an n×W 2D array to store intermediate results, and for each item, we need to consider every possible knapsack capacity.
 
-## Results
+### Adding a New Variable
+
+#### Pseudocode
+```
+function knapsack_with_new_variable(n, weights[], values[], W): 
+    M = array[n+1][W+1]
+    for i from 1 to n:
+        for w from 0 to W:
+            new_variable = ...
+            M[i][w] = max(...)
+    return M[n][W]
+```
+
+#### Algorithmic principle
+By adding this new variable, the algorithm can better capture the constraints and characteristics of the problem, which can lead to a more efficient and effective solution strategy.
+In the context of the knapsack problem, the new variable typically represents some additional information that helps to refine the problem's formulation. This could be, for example, the remaining capacity of the knapsack or the fraction of a particular item that is included in the knapsack.
+By incorporating this additional variable into the algorithm, it becomes possible to consider a wider range of possibilities and make more informed decisions at each step of the problem-solving process. This can ultimately lead to improved performance and accuracy in finding the optimal solution to the knapsack problem.
+
+#### Algorithm implement
+The Implementation of Algorithms in C++
+```
+ // Dimensions: [item index][current weight][remaining capacity]
+int knapsack_with_new_variable(int n, vector<int>& weights, vector<int>& values, int W) {
+   
+    vector<vector<vector<int>>> M(n + 1, vector<vector<int>>(W + 1, vector<int>(W + 1, 0)));
+
+    // Iterate over each item
+    for (int i = 1; i <= n; ++i) {
+        // Iterate over each possible current weight
+        for (int w1 = 0; w1 <= W; ++w1) {
+            // Iterate over each possible remaining capacity
+            for (int w2 = 0; w2 <= W - w1; ++w2) {
+                // If the current item's weight exceeds the remaining capacity, don't select it
+                if (weights[i] > w1) {
+                    M[i][w1][w2] = M[i - 1][w1][w2];
+                } else {
+                    // Calculate the maximum value by considering two possibilities:
+                    // 1. Selecting the current item
+                    // 2. Not selecting the current item
+                    int with_i = values[i] + M[i - 1][w1 - weights[i]][w2];
+                    int without_i = M[i - 1][w1][w2];
+                    M[i][w1][w2] = max(with_i, without_i);
+                }
+            }
+        }
+    }
+
+    // Return the maximum value after considering all items and capacities
+    return M[n][W][W];
+}
+
+```
+#### Time complexity
+The time complexity of dynamic programming methods that add new variables is usually O (n W<sup>2</sup>), where n is the number of items and W is the capacity of the backpack. In this method, we introduce an additional dimension to represent the remaining capacity of the backpack, so that each state in the state transition equation needs to consider the current weight and remaining capacity of the backpack. Therefore, when filling the dynamic programming table, we need to consider O (n W<sup>2</sup>) states, and the calculation of each state requires O (1) time complexity. Therefore, the overall time complexity is O (n W<sup>2</sup>)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
