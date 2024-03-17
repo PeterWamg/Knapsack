@@ -1,5 +1,8 @@
 
-# Knapsack Algorithm
+# Knapsack Problem
+
+## Introduction
+Knapsack problem is a combinatorial optimization NP complete problem, which refers to the common problem of packaging your most valuable or useful items without overloading your luggage.
 
 ## Description
 The Knapsack Problem is a classic combinatorial optimization problem commonly encountered in resource allocation scenarios. Decision-makers are tasked with selecting from a set of indivisible items or tasks within fixed budget or time constraints. The objective is to optimize by choosing the best combination to maximize a specific goal, such as profit, efficiency, or meeting particular requirements, within the confines of limited resources.
